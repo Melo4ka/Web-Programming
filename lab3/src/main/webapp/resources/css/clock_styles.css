@@ -1,0 +1,99 @@
+body {
+  grid-template-areas: 'header'
+                       'clock'
+                       'clock_bar'
+                       'footer';
+}
+
+.clock {
+  grid-area: clock;
+  position: absolute;
+  width: 300px;
+  height: 300px;
+  border: 20px solid #F4874B;
+  border-radius: 50%;
+  left: 50%;
+  top: 35%;
+  background: #fefbf2;
+  transform: translate(-50%, -50%);
+  box-shadow: inset 0 0 10px black;
+}
+
+.clock::before {
+  position: absolute;
+  content: '';
+  height: 130px;
+  width: 10px;
+  background: black;
+  top: 50%;
+  left: calc(50% - 5px);
+  border-radius: 5px;
+  animation: spin 6s linear infinite;
+  transform-origin: top;
+}
+
+.clock::after {
+  position: absolute;
+  content: '';
+  height: 100px;
+  width: 10px;
+  background: black;
+  top: 50%;
+  left: calc(50% - 5px);
+  border-radius: 5px;
+  animation: spin 72s linear infinite;
+  transform-origin: top;
+
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(-180deg)
+  }
+  100% {
+    transform: rotate(180deg)
+  }
+}
+
+body::before {
+  content: '';
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #F4874B;
+  left: 50%;
+  top: 35%;
+  transform: translate(-50%, -50%);
+  z-index: 1;
+}
+
+body::after {
+  content: '';
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: black;
+  left: 50%;
+  top: calc(35% - 145px);
+  z-index: 2;
+  transform: translateX(-50%);
+  box-shadow: 140px 145px 0 0 black, -140px 145px 0 0 black, 0 280px 0 0 black;
+}
+
+.clock_bar {
+  font-size: 50px;
+  height: 15%;
+  width: 35%;
+  margin: 30% auto 0;
+  line-height: 125px;
+  padding: 0 50px;
+  background: #F4874B;
+  color: #eee;
+  text-align: center;
+  border: 2px #F3B05A solid;
+  border-radius: 15px;
+  box-shadow: 0 0 7px #222;
+  text-shadow: 0 0 3px #fff;
+}

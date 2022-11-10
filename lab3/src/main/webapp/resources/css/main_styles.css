@@ -1,0 +1,102 @@
+body {
+  grid-template-areas: 'header'
+                'plot'
+                'plot'
+                'result_table'
+                'result_table'
+                'result_table'
+                'result_table'
+                'footer';
+}
+
+.plot {
+  grid-area: plot;
+}
+
+.result_table {
+  grid-area: result_table;
+  margin: 10px 15px;
+}
+
+.result_table table {
+  border-collapse: collapse;
+  overflow: hidden;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+  background: white;
+  border-radius: 50px;
+}
+
+.result_table table tr:hover {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+.result_table table td:empty {
+  display: none !important;
+}
+
+.fields {
+  grid-area: fields;
+  margin-bottom: 50px;
+}
+
+form .input {
+  margin-top: 15px;
+}
+
+form input[type=text] {
+  width: 350px;
+  padding: 10px;
+  border-radius: 50px;
+  border: 3px solid #F3B05A;
+}
+
+form input[type=button] {
+  font-size: 15px;
+  color: white;
+  background-color: #F3B05A;
+  border-radius: 7px;
+  padding: 8px;
+  margin: 5px 5px 10px;
+  border: none;
+  cursor: pointer;
+}
+
+.message {
+  color: red;
+}
+
+.form-buttons input {
+  font-size: 30px;
+  margin: 25px 200px 5px;
+  height: 50px;
+  width: 300px;
+  border: none;
+  border-radius: 10px;
+  color: white;
+  background-color: #F3B05A;
+  cursor: pointer;
+}
+
+th, td {
+  padding: 15px;
+  background-color: rgba(255, 255, 255, 0.2);
+  color: black;
+}
+
+th {
+  background-color: #F3B05A;
+  color: white;
+  text-align: center;
+  text-decoration: underline;
+}
+
+svg {
+  margin: 50px 0 50px 0;
+  cursor: crosshair;
+}
+
+svg .plot_part {
+  fill: #F3B05A;
+  stroke: #F4874B;
+  fill-opacity: 0.35;
+}

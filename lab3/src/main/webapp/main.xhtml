@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="resources/templates/template.xhtml">
+    <ui:define name="head">
+        <h:outputStylesheet library="css" name="main_styles.css"/>
+        <h:outputScript library="js" name="plot.js"/>
+    </ui:define>
+    <ui:define name="content">
+        <h:panelGroup id="plot_script">
+            <h:outputScript>
+                setTimeout(() => {
+                    renderPlot(
+                        JSON.parse(JSON.stringify(#{resultsBean.parseResultsToJson()})),
+                        #{resultsBean.current.r}
+                    )
+                }, 0)
+            </h:outputScript>
+        </h:panelGroup>
+        <div class="plot">
+            <svg height="300" width="300" xmlns="http://www.w3.org/2000/svg">
+                <polygon class="plot_part" points="250,150 150,150 150,100"/>
+                <rect class="plot_part" x="50" y="150" height="100" width="100"/>
+                <path class="plot_part" d="M 150 200 A 50 50, 100, 0, 0, 200 150 L 150 150 Z"/>
+
+                <svg id="dots" height="300" width="300"/>
+
+                <line stroke="black" x1="0" x2="300" y1="150" y2="150"/>
+                <line stroke="black" x1="150" x2="150" y1="0" y2="300"/>
+                <polygon fill="black" points="150,0 144,15 155,15"/>
+                <polygon fill="black" points="300,150 285,156 285,144"/>
+
+                <line stroke="black" x1="200" x2="200" y1="155" y2="145"/>
+                <line stroke="black" x1="250" x2="250" y1="155" y2="145"/>
+
+                <line stroke="black" x1="50" x2="50" y1="155" y2="145"/>
+                <line stroke="black" x1="100" x2="100" y1="155" y2="145"/>
+
+                <line stroke="black" x1="145" x2="155" y1="100" y2="100"/>
+                <line stroke="black" x1="145" x2="155" y1="50" y2="50"/>
+
+                <line stroke="black" x1="145" x2="155" y1="200" y2="200"/>
+                <line stroke="black" x1="145" x2="155" y1="250" y2="250"/>
+
+                <text fill="black" x="190" y="140">½R</text>
+                <text fill="black" x="245" y="140">R</text>
+
+                <text fill="black" x="40" y="140">-R</text>
+                <text fill="black" x="85" y="140">-½R</text>
+
+                <text fill="black" x="160" y="105">½R</text>
+                <text fill="black" x="160" y="55">R</text>
+
+                <text fill="black" x="160" y="205">-½R</text>
+                <text fill="black" x="160" y="255">-R</text>
+
+                <text fill="black" x="160" y="10">Y</text>
+                <text fill="black" x="290" y="140">X</text>
+            </svg>
+        </div>
+        <div class="fields">
+            <h:form id="main_form">
+                <div class="input">
+                    Выберите значение X
+                    <br/>
+                    <ui:repeat value="#{[-5, -4, -3, -2, -1, 0, 1, 2, 3]}" var="i">
+                        <h:commandButton value="#{i}" action="#{resultsBean.current.setX(i)}" type="button">
+                            <f:ajax execute="@this"/>
+                        </h:commandButton>
+                    </ui:repeat>
+                    <br/>
+                </div>
+                <div class="input">
+                    Введите значение Y
+                    <br/>
+                    <h:inputText id="y"
+                                 required="true"
+                                 maxlength="6"
+                                 converterMessage="Введите число в диапазоне [-3;5]"
+                                 validatorMessage="Введите число в диапазоне [-3;5]"
+                                 value="#{resultsBean.current.y}">
+                        <f:validateDoubleRange minimum="-3" maximum="5"/>
+                    </h:inputText>
+                    <br/>
+                    <h:message class="message" for="y" id="y_msg"/>
+                    <br/>
+                </div>
+                <div class="input">
+                    Выберите значение R
+                    <br/>
+                    <p:spinner id="spinner"
+                               value="#{resultsBean.current.r}"
+                               min="0.5" max="4" stepFactor="0.5"
+                               upButtonStyleClass="ui-button-success"
+                               downButtonStyleClass="ui-button-danger"
+                               converterMessage="Введите число в диапазоне [0.5;4]"
+                               validatorMessage="Введите число в диапазоне [0.5;4]"
+                               onkeypress="return false"
+                               buttons="horizontal">
+                        <f:validateDoubleRange minimum="0.5" maximum="4"/>
+                        <p:ajax update="plot_script"/>
+                    </p:spinner>
+                    <br/>
+                    <h:message class="message" for="spinner" id="r_msg"/>
+                    <br/>
+                </div>
+                <div class="form-buttons">
+                    <h:commandButton id="sumbit_button" value="Отправить" action="#{resultsBean.addResult}">
+                        <f:ajax execute="@form"
+                                render="y_msg r_msg main_table plot_script"/>
+                    </h:commandButton>
+                </div>
+                <p:remoteCommand name="addResultFromPlot"
+                                 update="y_msg r_msg main_table plot_script"
+                                 action="#{resultsBean.addResultFromPlot}"/>
+            </h:form>
+        </div>
+        <div class="result_table">
+            <h:dataTable id="main_table" value="#{resultsBean.results}" var="result">
+                <h:column>
+                    <f:facet name="header">Номер</f:facet>
+                    #{result.id}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Значение X</f:facet>
+                    #{result.x}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Значение Y</f:facet>
+                    #{result.y}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Значение R</f:facet>
+                    #{result.r}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Попадание</f:facet>
+                    #{result.successString}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Время нажатия</f:facet>
+                    #{result.formattedTime}
+                </h:column>
+            </h:dataTable>
+        </div>
+        <div class="switch_page_button">
+            <h:button value="Перейти на страницу с часами" outcome="index"/>
+        </div>
+    </ui:define>
+</ui:composition>
+</html>
