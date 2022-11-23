@@ -37,7 +37,7 @@ public class MartinRaila {
   private Dependency someDependency;
 
   // Теперь мы принимаем зависимость извне, что избавляет компонент от необходимости ею управлять
-  public Martin(Dependency someDependency) {
+  public MartinRaila(Dependency someDependency) {
     this.someDependency = someDependency;
   }
   
