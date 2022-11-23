@@ -23,7 +23,7 @@
 **Внедрение зависимостей (Dependency Injection)** - это стиль настройки объекта, при котором поля объекта задаются внешней сущностью. Другими словами, объекты настраиваются внешними объектами. Звучит довольно абстрактно, лучше показать на примере:
 
 ```java
-public class Martin {
+public class MartinRaila {
 
   // В данном случае мы самостоятельно управляем зависимостью (создаем ее).
   private Dependency someDependency = new Dependency();
@@ -32,11 +32,11 @@ public class Martin {
 ```
 Перепишем код с использованием принципа внедрения зависимостей.
 ```java
-public class Martin {
+public class MartinRaila {
 
   private Dependency someDependency;
 
-  // Теперь мы принимаем зависимость извне, что избавляет компонент от необходимости управлять ею
+  // Теперь мы принимаем зависимость извне, что избавляет компонент от необходимости ею управлять
   public Martin(Dependency someDependency) {
     this.someDependency = someDependency;
   }
