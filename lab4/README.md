@@ -47,8 +47,8 @@ public class MartinRaila {
 
 Существует 3 типа внедрения зависимостей:
 * Field injection: инъекция напрямую в поле.
-* Constructor injection: инъекция конструктор (как показано в примере выше).
-* Setter injection: инъекция через специальные методы, сеттеры
+* Constructor injection: инъекция в конструктор (как показано в примере выше).
+* Setter injection: инъекция через специальные методы, сеттеры.
 
 **CDI (Contexts and Dependency Injection)** - это спецификация Java EE, описывающая внедрение зависимостей и контексты.
 
