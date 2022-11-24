@@ -265,14 +265,99 @@ _Использование_: Создание приложений с мног�
 
 Рассмотрим создание управляемого бина на Spring и Java EE:
 1. Определение бина
-| Spring | Java EE |
-| :---: | :---: |
-| 
+Spring:
+```java
+// Лучше использовать производные от аннотации @Component (@Controller, @Service, @Repository) в зависимости от предназначения бина, чтобы явно обозначить логику бина и расширить его функционал
+@Component
+public class MyClass{
+}
+```
+Java EE:
 ```java
 @Named
 public class MyClass {
-    public void doIt() {
-    }
 }
 ```
-| test |
+2. Внедрение бина
+Spring:
+```java
+@Controller
+public class MyClass {
+
+  @Autowired
+  AnotherClass another;
+  
+}
+
+@Component
+public class AnotherClass{
+}
+```
+Java EE:
+```java
+@Named
+public class MyClass {
+
+  @Inject
+  AnotherClass another;
+  
+}
+
+public class AnotherClass {
+}
+```
+3. Ивенты жизненного цикла бина
+Spring:
+```java
+@Component
+public class AnotherClass {
+
+    @PostConstruct
+    public void init() {
+      // Данный метод будет вызван после внедрения бина
+    }
+    
+    @PreDestroy
+    public void destroy() {
+      // Данный метод будет вызван перед уничтожением бина
+    }
+    
+}
+```
+Java EE:
+```java
+public class AnotherClass {
+
+    @PostConstruct
+    public void init() {
+      // Данный метод будет вызван после внедрения бина
+    }
+    
+    @PreDestroy
+    public void destroy() {
+      // Данный метод будет вызван перед уничтожением бина
+    }
+    
+}
+```
+4. Определение области видиости бина
+Spring:
+```java
+@Component
+// Аттрибут proxyMode необходим для внедрения бина с меньшим сроком жизни (request) в бин с большим сроком жизни (singleton)
+// Spring оборачивает экземпляр бина в динамический прокси
+@Scope(proxyMode = ScopedProxyMode.TARGET_CLASS, value = "request")
+public class AnotherClass {
+}
+```
+Java EE:
+```java
+@Named
+@RequestScoped // Существуют также @SessionScoped, @ApplicationScoped и другие
+public class AnotherClass {
+}
+```
+
+Таким образом, Spring и Java EE предоставляют очень функциональные контейнеры. Как можно уведить из примеров выше, их функционал очень схож.
+
+## 13. Реализация REST API в Java EE и Spring.
