@@ -1,0 +1,142 @@
+body {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    min-height: 100vh;
+    font-family: "Gill Sans", sans-serif;
+    background: linear-gradient(to bottom, #6c5b7b, #355c7d, #6c5b7b);
+    color: #ddd;
+    text-align: center;
+}
+
+.header {
+    margin-bottom: 30px;
+    padding: 15px;
+    font-size: 12px;
+}
+
+.footer {
+    margin-top: 50px;
+}
+
+.footer img {
+    border-radius: 50%;
+    width: 55px;
+    height: 55px;
+    margin: 0 7px;
+    box-shadow: 0 0 5px 3px rgba(0, 0, 0, 0.2);
+}
+
+.footer img:hover {
+    box-shadow: 0 0 10px 4px rgba(255, 255, 255, 0.75);
+}
+
+/* Main part */
+
+.plot svg {
+    margin: 30px 0 30px 0;
+    background-color: #ddd;
+    box-shadow: 5px 20px 50px #000;
+    cursor: crosshair;
+}
+
+.plot .plot-part {
+    fill: #6c5b7b;
+    stroke: #355c7d;
+    fill-opacity: 0.35;
+}
+
+.plot polygon, text {
+    fill: black;
+}
+
+.plot line {
+    stroke: black;
+}
+
+.fields .input {
+    margin-top: 15px;
+}
+
+.fields .input *:not(label) {
+    width: 250px;
+    height: 40px;
+    border: 3px solid #6c5b7b;
+    font-size: 12px;
+    outline: none;
+    opacity: 0.8;
+}
+
+.fields .input select {
+    cursor: pointer;
+}
+
+.form-buttons button {
+    font-size: 15px;
+    margin: 25px 5px;
+    height: 40px;
+    width: 115px;
+    border-color: #eee;
+    color: #ddd;
+    background-color: #6c5b7b;
+    cursor: pointer;
+}
+
+.form-buttons .clear-button button {
+    height: 50px;
+    width: 165px;
+}
+
+.form-buttons button:hover {
+    background: #836f94;
+}
+
+.result-table {
+    overflow-y: auto;
+    height: auto;
+    max-height: 300px;
+}
+
+.result-table table {
+    border-collapse: collapse;
+    width: 100%;
+    background: #ddd;
+}
+
+.result-table table tr:hover {
+    background-color: rgba(0, 0, 0, 0.15);
+}
+
+.result-table table th, td {
+    padding: 15px;
+}
+
+.result-table table thead th {
+    position: sticky;
+    top: 0;
+    background-color: #6c5b7b;
+    color: #ddd;
+}
+
+.result-table table td {
+    background-color: rgba(255, 255, 255, 0.2);
+    color: black;
+}
+
+.logout-button button {
+    font-size: 25px;
+    margin-top: 45px;
+    height: 50px;
+    width: 150px;
+    border-color: #eee;
+    color: #ddd;
+    background-color: #355c7d;
+    cursor: pointer;
+}
+
+.logout-button button:hover {
+    background: #3e6c93;
+}
