@@ -176,12 +176,13 @@
         </jar>
     </target>
 
-    <target name="music" depends="build" description="Воспроизведение музыки после сборки war-файла">
-        <echo>Воспроизведение звукового файла...</echo>
+    <target name="music" description="Воспроизведение музыки после сборки war-файла">
         <sound>
             <success source="${music.success.file}"/>
             <fail source="${music.fail.file}"/>
         </sound>
+        <antcall target="build"/>
+        <echo>Воспроизведение звукового файла...</echo>
     </target>
 
     <target name="scp" depends="build" description="Сборка и перемещение собранного war-архива по scp на сервер">
