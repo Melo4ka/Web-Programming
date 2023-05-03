@@ -65,7 +65,7 @@
         </sequential>
     </macrodef>
 
-    <target name="compile" depends="clean" description="Компиляция кода проекта">
+    <target name="compile" description="Компиляция кода проекта">
         <echo>Компиляция основного кода...</echo>
         <property name="srcdir" value="${src.main.dir}"/>
         <mkdir dir="${build.classes.dir}"/>
