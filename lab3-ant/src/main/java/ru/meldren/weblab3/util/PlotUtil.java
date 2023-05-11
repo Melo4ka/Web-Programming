@@ -3,7 +3,7 @@ package ru.meldren.weblab3.util;
 import lombok.experimental.UtilityClass;
 
 /**
- * Created by Meldren on 09/11/2022
+ * Created by Meldren on 04/05/2023
  */
 @UtilityClass
 public class PlotUtil {

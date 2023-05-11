@@ -17,4 +17,8 @@ public class Coordinates {
     double x, y;
     int r = 1;
 
+    @Override
+    public String toString() {
+        return "(" + x + ", " + y + ", " + r + ")";
+    }
 }
